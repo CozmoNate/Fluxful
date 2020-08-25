@@ -1,0 +1,7 @@
+coverage_service: coveralls
+workspace: Fluxful.xcworkspace
+xcodeproj: Fluxful.xcodeproj
+scheme: Fluxful
+ignore:
+  - ../*
+  - FluxfulTests/*
