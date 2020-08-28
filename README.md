@@ -104,3 +104,13 @@ class MyStore: Store {
 
 
 That's it! Now store will send notification every time its state changes when the action was dispatched to the store. By adding the observers with 'addObserver' method, you can track state changes and update UI accordingly.
+
+## Author
+
+
+Natan Zalkin natan.zalkin@me.com
+
+## License
+
+
+Fluxful is available under the MIT license. See the LICENSE file for more info.

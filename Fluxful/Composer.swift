@@ -1,5 +1,5 @@
 //
-//  ActionReducer.swift
+//  Composer.swift
 //
 //  Copyright © 2020 Natan Zalkin. All rights reserved.
 //
@@ -29,29 +29,37 @@
 
 import Foundation
 
-/// ActionReducer is an object used by middleware to transform or pass  actions to another reducer or to apply action to the store.
-public struct ActionReducer {
+/// Composer is an opaque container that can transform, pass or stop action propagation.
+public struct Composer {
     
     /// Passes the action to next reducer.
-    public static func next<Action, Subject: Store>(_ action: Action, _ store: Subject) -> ActionReducer {
-        return ActionReducer(reduce: { $0.handle(action, store) }, apply: { store.apply(action) })
+    public static func next<Action, Subject: Store>(_ action: Action, _ store: Subject) -> Composer {
+        return Composer(pass: { $0.handle(action, store) }, apply: { $0.apply(action) })
     }
 
     /// Stops action propagation.
-    public static func stop() -> ActionReducer {
-        return ActionReducer()
+    public static func stop() -> Composer {
+        return Composer()
     }
     
-    private var reduce: ((Middleware) -> ActionReducer)?
-    private var apply: (() -> Void)?
+    internal var pass: ((Middleware) -> Composer)?
+    internal var apply: ((Store) -> Void)?
     
-    /// Dispatches underlying action to middleware and return reducer with the action passed by the middleware.
-    internal func handle(with middleware: Middleware) -> ActionReducer {
-        return reduce?(middleware) ?? ActionReducer(apply: apply)
+    internal init(pass: ((Middleware) -> Composer)? = nil, apply: ((Store) -> Void)? = nil) {
+        self.pass = pass
+        self.apply = apply
+    }
+}
+
+internal extension Composer {
+    
+    /// Dispatches the underlying action to middleware and return reducer with the action passed by the middleware.
+    func pass(to middleware: Middleware) -> Composer {
+        return pass?(middleware) ?? Composer(apply: apply)
     }
     
-    /// Applies underlying action to underlying store.
-    internal func applyToStore() {
-        apply?()
+    /// Applies the underlying action to the store.
+    func apply(to store: Store) {
+        apply?(store)
     }
 }

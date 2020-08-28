@@ -12,7 +12,7 @@
 		2F4FB9A524F4C3A300E1D30E /* Fluxful.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F4FB99724F4C3A200E1D30E /* Fluxful.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F4FB9C724F4DBB200E1D30E /* ReactiveFluxful.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F4FB9B924F4DBB200E1D30E /* ReactiveFluxful.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F4FB9D124F4E27D00E1D30E /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9CE24F4E27D00E1D30E /* Middleware.swift */; };
-		2F4FB9D224F4E27D00E1D30E /* ActionReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9CF24F4E27D00E1D30E /* ActionReducer.swift */; };
+		2F4FB9D224F4E27D00E1D30E /* Composer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9CF24F4E27D00E1D30E /* Composer.swift */; };
 		2F4FB9D324F4E27D00E1D30E /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9D024F4E27D00E1D30E /* Store.swift */; };
 		2F4FB9D524F4E28900E1D30E /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9D424F4E28900E1D30E /* Subscription.swift */; };
 		2F4FB9D824F4E3D400E1D30E /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 2F4FB9D724F4E3D400E1D30E /* Quick */; };
@@ -61,7 +61,7 @@
 		2F4FB9B924F4DBB200E1D30E /* ReactiveFluxful.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReactiveFluxful.h; sourceTree = "<group>"; };
 		2F4FB9BA24F4DBB200E1D30E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F4FB9CE24F4E27D00E1D30E /* Middleware.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Middleware.swift; sourceTree = "<group>"; };
-		2F4FB9CF24F4E27D00E1D30E /* ActionReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionReducer.swift; sourceTree = "<group>"; };
+		2F4FB9CF24F4E27D00E1D30E /* Composer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Composer.swift; sourceTree = "<group>"; };
 		2F4FB9D024F4E27D00E1D30E /* Store.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		2F4FB9D424F4E28900E1D30E /* Subscription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subscription.swift; sourceTree = "<group>"; };
 		2F4FB9E024F4E48900E1D30E /* MockStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockStore.swift; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				2F4FB99724F4C3A200E1D30E /* Fluxful.h */,
-				2F4FB9CF24F4E27D00E1D30E /* ActionReducer.swift */,
+				2F4FB9CF24F4E27D00E1D30E /* Composer.swift */,
 				2F4FB9CE24F4E27D00E1D30E /* Middleware.swift */,
 				2F4FB9D024F4E27D00E1D30E /* Store.swift */,
 				2F4FB99824F4C3A200E1D30E /* Info.plist */,
@@ -316,7 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F4FB9D324F4E27D00E1D30E /* Store.swift in Sources */,
-				2F4FB9D224F4E27D00E1D30E /* ActionReducer.swift in Sources */,
+				2F4FB9D224F4E27D00E1D30E /* Composer.swift in Sources */,
 				2F4FB9D124F4E27D00E1D30E /* Middleware.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

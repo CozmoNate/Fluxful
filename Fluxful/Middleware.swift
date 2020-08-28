@@ -29,11 +29,11 @@
 
 import Foundation
 
-/// Middleware is an object
+/// Middleware is an object that handles the action before the store will apply it. Middleware can run asynchronous work and update store when needed. Middleware can intercept an action before the store will receive it.
 public protocol Middleware: AnyObject {
     
     /// A reducer closure associated with actions of specific type. Reducer synchronously apply changes to store.
-    typealias Handler<Action, Subject: Store> = (_ action: Action, _ store: Subject) -> ActionReducer
+    typealias Handler<Action, Subject: Store> = (_ action: Action, _ store: Subject) -> Composer
 
     /// The list of type-erased reducer closures associated with specific types of actions and stores.
     var handlers: [ObjectIdentifier: Any] { get set }
@@ -69,7 +69,7 @@ public extension Middleware {
     ///   - action: The action to be transformed, cancelled or passed as is.
     ///   - store: The instance of the store that will apply the action.
     /// - Returns: The ActionReducer object that carries the next action.
-    func handle<Action, Subject: Store>(_ action: Action, _ store: Subject) -> ActionReducer {
+    func handle<Action, Subject: Store>(_ action: Action, _ store: Subject) -> Composer {
         guard let handle = handlers[ObjectIdentifier(Handler<Action, Subject>.self)] as? Handler<Action, Subject> else {
             return .next(action, store) // Pass the action as is
         }

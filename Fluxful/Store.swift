@@ -63,20 +63,18 @@ public extension Store {
     func unregisterAll() {
         reducers.removeAll()
     }
-    
-    /// Dispatches the action to the store through middlewares.
-    func dispatch<Action>(_ action: Action) {
-        middlewares
-            .reduce(ActionReducer.next(action, self)) { (reducer, middleware) in
-                return reducer.handle(with: middleware)
-            }
-            .applyToStore()
-    }
-    
+
     /// Executes the action directly, bypassing middlewares.
     func apply<Action>(_ action: Action) {
         if let apply = reducers[ObjectIdentifier(Action.self)] as? Reducer<Action> {
             apply(self, action)
         }
+    }
+    
+    /// Dispatches the action to the store through middlewares.
+    func dispatch<Action>(_ action: Action) {
+        middlewares
+            .reduce(Composer.next(action, self)) { $0.pass(to: $1) }
+            .apply(to: self)
     }
 }
