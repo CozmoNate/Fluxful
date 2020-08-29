@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F4FB99E24F4C3A300E1D30E /* Fluxful.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F4FB99424F4C3A200E1D30E /* Fluxful.framework */; };
-		2F4FB9A324F4C3A300E1D30E /* FluxfulTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9A224F4C3A300E1D30E /* FluxfulTests.swift */; };
+		2F4FB9A324F4C3A300E1D30E /* StoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9A224F4C3A300E1D30E /* StoreTests.swift */; };
 		2F4FB9A524F4C3A300E1D30E /* Fluxful.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F4FB99724F4C3A200E1D30E /* Fluxful.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F4FB9C724F4DBB200E1D30E /* ReactiveFluxful.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F4FB9B924F4DBB200E1D30E /* ReactiveFluxful.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F4FB9D124F4E27D00E1D30E /* Middleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9CE24F4E27D00E1D30E /* Middleware.swift */; };
@@ -21,6 +21,7 @@
 		2F4FB9E524F5132500E1D30E /* MockMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9E424F5132500E1D30E /* MockMiddleware.swift */; };
 		2F4FB9E724F5289E00E1D30E /* MockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9E624F5289E00E1D30E /* MockAction.swift */; };
 		2F4FBA0124FA4D5D00E1D30E /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FBA0024FA4D5D00E1D30E /* Dispatcher.swift */; };
+		2FB4091E24FA671B00110822 /* DispatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB4091D24FA671B00110822 /* DispatcherTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +53,7 @@
 		2F4FB99724F4C3A200E1D30E /* Fluxful.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fluxful.h; sourceTree = "<group>"; };
 		2F4FB99824F4C3A200E1D30E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F4FB99D24F4C3A300E1D30E /* FluxfulTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FluxfulTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2F4FB9A224F4C3A300E1D30E /* FluxfulTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FluxfulTests.swift; sourceTree = "<group>"; };
+		2F4FB9A224F4C3A300E1D30E /* StoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTests.swift; sourceTree = "<group>"; };
 		2F4FB9A424F4C3A300E1D30E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F4FB9AE24F4C3F900E1D30E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2F4FB9AF24F4C3F900E1D30E /* Fluxful.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Fluxful.podspec; sourceTree = "<group>"; };
@@ -70,6 +71,7 @@
 		2F4FB9E624F5289E00E1D30E /* MockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAction.swift; sourceTree = "<group>"; };
 		2F4FB9E824F52EFC00E1D30E /* redux-diagram.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "redux-diagram.gif"; sourceTree = "<group>"; };
 		2F4FBA0024FA4D5D00E1D30E /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
+		2FB4091D24FA671B00110822 /* DispatcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatcherTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,8 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				2F4FB99724F4C3A200E1D30E /* Fluxful.h */,
-				2F4FB9CF24F4E27D00E1D30E /* Composer.swift */,
 				2F4FBA0024FA4D5D00E1D30E /* Dispatcher.swift */,
+				2F4FB9CF24F4E27D00E1D30E /* Composer.swift */,
 				2F4FB9CE24F4E27D00E1D30E /* Middleware.swift */,
 				2F4FB9D024F4E27D00E1D30E /* Store.swift */,
 				2F4FB99824F4C3A200E1D30E /* Info.plist */,
@@ -142,9 +144,10 @@
 			isa = PBXGroup;
 			children = (
 				2F4FB9E624F5289E00E1D30E /* MockAction.swift */,
-				2F4FB9E424F5132500E1D30E /* MockMiddleware.swift */,
 				2F4FB9E024F4E48900E1D30E /* MockStore.swift */,
-				2F4FB9A224F4C3A300E1D30E /* FluxfulTests.swift */,
+				2F4FB9E424F5132500E1D30E /* MockMiddleware.swift */,
+				2F4FB9A224F4C3A300E1D30E /* StoreTests.swift */,
+				2FB4091D24FA671B00110822 /* DispatcherTests.swift */,
 				2F4FB9A424F4C3A300E1D30E /* Info.plist */,
 			);
 			path = FluxfulTests;
@@ -329,7 +332,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F4FB9A324F4C3A300E1D30E /* FluxfulTests.swift in Sources */,
+				2FB4091E24FA671B00110822 /* DispatcherTests.swift in Sources */,
+				2F4FB9A324F4C3A300E1D30E /* StoreTests.swift in Sources */,
 				2F4FB9E724F5289E00E1D30E /* MockAction.swift in Sources */,
 				2F4FB9E524F5132500E1D30E /* MockMiddleware.swift in Sources */,
 				2F4FB9E124F4E48A00E1D30E /* MockStore.swift in Sources */,

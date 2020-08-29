@@ -29,7 +29,7 @@
 
 import Foundation
 
-/// Dispatcher is a protocol describing an object that dispatches actions
+/// An object that can dispatch actions.
 public protocol Dispatcher: AnyObject {
     
     /// Dispatches the action

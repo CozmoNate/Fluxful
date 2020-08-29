@@ -27,19 +27,21 @@
 *
 */
 
-import Foundation
-
 /// ReactiveStore is an object that represents a state and performs self mutation by handling dispatched actions.
 public protocol Store: Dispatcher {
     
     /// A reducer closure associated with actions of specific type. Reducer synchronously apply changes to store.
-    typealias Reducer<Action> = (_ store: Self, _ action: Action) -> Void
+    typealias Reducer<Action> = (_ subject: Self, _ action: Action) -> Void
     
     /// The list of type-erased reducer closures associated with specific types of actions.
     var reducers: [ObjectIdentifier: Any] { get set }
     
     /// The list of  middlewares.
     var middlewares: [Middleware] { get }
+    
+    /// Applies the action bypassing middlewares.
+    /// - Parameter action: The action to apply
+    func apply<Action>(_ action: Action)
 }
     
 public extension Store {
@@ -63,17 +65,15 @@ public extension Store {
         reducers.removeAll()
     }
 
-    /// Executes the action directly, bypassing middlewares.
     func apply<Action>(_ action: Action) {
         if let apply = reducers[ObjectIdentifier(Action.self)] as? Reducer<Action> {
             apply(self, action)
         }
     }
     
-    /// Dispatches the action to the store through middlewares.
     func dispatch<Action>(_ action: Action) {
         middlewares
-            .reduce(Composer(action)) { $0.pass(to: $1, from: self) }
+            .reduce(Composer(action)) { $0.handle(with: $1) }
             .apply(to: self)
     }
 }

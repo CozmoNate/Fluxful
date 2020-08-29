@@ -27,7 +27,7 @@ Add "Fluxful" dependency in XCode
 pod 'Fluxful'
 ```
 
-Add extension to support "conventional" observing:
+Add extension supporting store change notification and observering:
 
 ```ruby
 pod 'Fluxful/Reactive'
@@ -53,19 +53,18 @@ struct FetchAmountAction {}
 When you can implement middleware, that handles specific actions, run asynchronous work and updates the store:
 
 ```swift
-
 class MyMiddleware: Middleware {
     
     var handlers: [ObjectIdentifier: Any] = [:]
     
-    init() {
-        register(FetchAmountAction.self, for: MyStore.self) { (action, store) in
+    init(dispatcher: Dispatcher) {
+        register(FetchAmountAction.self) { [weak dispatcher] (subject, action) in
             
             /* Here you can run code in background or make API call */ 
             
             // After that you should back to main thread and update the store
             DispatchQueue.main.async { [weak store] in
-                store?.dispatch(SetAmountAction(value: /* Value received */))
+                dispatcher?.dispatch(SetAmountAction(value: /* Value received */))
             }
             
             // You can just intercept the action if it will not being handled in the store anyway
@@ -83,20 +82,18 @@ class MyStore: Store {
 
     private(set) var amount = 0
     
-    var reducers: [ObjectIdentifier: Any]
-    var middlewares: [Middleware]
+    var reducers: [ObjectIdentifier: Any] = [:]
+    var middlewares: [Middleware] = []
     
     init() {
-        reducers = [:]
-        
         // Connect middleware
-        middlewares = [MockMiddleware()]
+        middlewares.append(MyMiddleware(dispatcher: self))
         
-        register(SetAmountAction.self) { (store, action) in
+        register(SetAmountAction.self) { (subject, action) in
             // Mutate state
-            store.amount = action.value
-            // Notify observers. When using with SwiftUI, this part is not needed, if you marked mutable properties with @Published
-            store.notify(keyPathsChanged: [\MyStore.amount])
+            subject.amount = action.value
+            // Notify observers. When using with SwiftUI, this part would not needed. Don't forget to mark mutable properties with @Published
+            subject.notify(keyPathsChanged: [\MyStore.amount])
         }
     }
 }

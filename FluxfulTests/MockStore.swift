@@ -17,17 +17,22 @@ class MockStore: Store {
     private(set) var number = 0
     
     var reducers: [ObjectIdentifier: Any] = [:]
-    var middlewares: [Middleware] = [MockMiddleware()]
+    var middlewares: [Middleware] = []
+    var lastQueueIdentifier: UUID!
     
     init() {
-        register(MockAction.SetValue.self) { (store, action) in
-            store.value = action.value
-            store.notify(keyPathsChanged: [\MockStore.value])
+        middlewares.append(MockMiddleware(dispatcher: self))
+        
+        register(MockAction.SetValue.self) { (subject, action) in
+            subject.lastQueueIdentifier = DispatchQueue.getSpecific(key: FluxfulQueueIdentifierKey)
+            subject.value = action.value
+            subject.notify(keyPathsChanged: [\MockStore.value])
         }
         
-        register(MockAction.SetNumber.self) { (store, action) in
-            store.number = action.number
-            store.notify(keyPathsChanged: [\MockStore.number])
+        register(MockAction.SetNumber.self) { (subject, action) in
+            subject.lastQueueIdentifier = DispatchQueue.getSpecific(key: FluxfulQueueIdentifierKey)
+            subject.number = action.number
+            subject.notify(keyPathsChanged: [\MockStore.number])
         }
     }
 }

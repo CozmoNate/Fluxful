@@ -14,22 +14,22 @@ class MockMiddleware: Middleware {
     
     var handlers: [ObjectIdentifier: Any] = [:]
     
-    init() {
-        register(MockAction.UpdateValue.self, for: MockStore.self) { (action, store) in
+    init(dispatcher: Dispatcher) {
+        register(MockAction.UpdateValue.self) { [weak dispatcher] (subject, action) in
             
             // Simulate background activity and event dispatched with delay
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) { [weak store] in
-                store?.dispatch(MockAction.SetValue(value: action.value))
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                dispatcher?.dispatch(MockAction.SetValue(value: action.value))
             }
             
             return .next(MockAction.SetValue(value: "reset"))
         }
         
-        register(MockAction.UpdateNumber.self, for: MockStore.self) { (action, store) in
+        register(MockAction.UpdateNumber.self) { [weak dispatcher] (subject, action) in
             
             // Simulate background activity and event dispatched with delay
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) { [weak store] in
-                store?.dispatch(MockAction.SetNumber(number: action.number))
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) {
+                dispatcher?.dispatch(MockAction.SetNumber(number: action.number))
             }
             
             return .stop()

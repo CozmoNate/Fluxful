@@ -1,5 +1,5 @@
 //
-//  FluxfulTests.swift
+//  StoreTests.swift
 //  FluxfulTests
 //
 //  Created by Natan Zalkin on 25/08/2020.
@@ -12,9 +12,9 @@ import Nimble
 @testable import Fluxful
 @testable import ReactiveFluxful
 
-class FluxfulTests: QuickSpec {
+class StoreTests: QuickSpec {
     override func spec() {
-        describe("Fluxful") {
+        describe("Store") {
             var subject: MockStore!
             
             beforeEach {
@@ -75,7 +75,7 @@ class FluxfulTests: QuickSpec {
                 
                 beforeEach {
                     middleware = subject.middlewares[0]
-                    middleware.unregister(MockAction.UpdateValue.self, for: MockStore.self)
+                    middleware.unregister(MockAction.UpdateValue.self)
                 }
                 
                 it("does not the action") {
@@ -101,7 +101,7 @@ class FluxfulTests: QuickSpec {
                 
                 beforeEach {
                     middleware = subject.middlewares[0]
-                    middleware.register(MockAction.SetValue.self, for: MockStore.self) { (action, store) in
+                    middleware.register(MockAction.SetValue.self) { (action, store) in
                         return .stop()
                     }
                     subject.dispatch(MockAction.SetValue(value: "intercept"))

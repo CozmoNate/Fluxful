@@ -27,8 +27,6 @@
 *
 */
 
-import Foundation
-
 /// Composer is an opaque container that can transform, pass or stop action propagation.
 public struct Composer {
     
@@ -42,37 +40,34 @@ public struct Composer {
         return Composer()
     }
     
-    internal var container: ActionContainer?
+    internal var container: Actionable?
     
     internal init() {}
     
     internal init<Action>(_ action: Action) {
         container = Container(action)
     }
+}
+
+internal protocol Actionable {
+    func handle(with middleware: Middleware) -> Composer
+    func apply(to store: Store)
+}
+
+extension Composer: Actionable {
     
-    /// Passes the action to middleware
-    internal func pass<Subject: Store>(to middleware: Middleware, from store: Subject) -> Composer {
-        return container?.pass(to: middleware, from: store) ?? self
+    func handle(with middleware: Middleware) -> Composer {
+        return container?.handle(with: middleware) ?? self
     }
     
-    /// Applies the action to the store.
-    internal func apply<Subject: Store>(to store: Subject) {
+    func apply(to store: Store) {
         container?.apply(to: store)
     }
 }
 
-internal protocol ActionContainer {
-    
-    /// Passes the action to middleware
-    func pass<Subject: Store>(to middleware: Middleware, from store: Subject) -> Composer
-    
-    /// Applies the action to the store.
-    func apply<Subject: Store>(to store: Subject)
-    
-}
-
 internal extension Composer {
-    struct Container<Action>: ActionContainer {
+    
+    struct Container<Action>: Actionable {
         
         let action: Action
         
@@ -80,11 +75,11 @@ internal extension Composer {
             self.action = action
         }
         
-        func pass<Subject: Store>(to middleware: Middleware, from store: Subject) -> Composer {
-            return middleware.handle(action, from: store)
+        func handle(with middleware: Middleware) -> Composer {
+            return middleware.handle(action)
         }
         
-        func apply<Subject: Store>(to store: Subject) {
+        func apply(to store: Store) {
             store.apply(action)
         }
     }

@@ -27,16 +27,21 @@
 *
 */
 
-import Foundation
-
 /// Middleware is an object that handles the action before the store will apply it. Middleware can run asynchronous work and update store when needed. Middleware can intercept an action before the store will receive it.
 public protocol Middleware: AnyObject {
     
-    /// A reducer closure associated with actions of specific type. Reducer synchronously apply changes to store.
-    typealias Handler<Action, Subject: Store> = (_ action: Action, _ store: Subject) -> Composer
+    /// A handler closure associated with actions of specific type.
+    typealias Handler<Action> = (_ subject: Self, _ action: Action) -> Composer
 
-    /// The list of type-erased reducer closures associated with specific types of actions and stores.
+    /// The list of type-erased handler closures associated with specific types of actions.
     var handlers: [ObjectIdentifier: Any] { get set }
+    
+    /// Handles the action and optionally transforms or cancels the action by returning appropriate action composer.
+    /// - Parameters:
+    ///   - action: The action to be transformed, cancelled or passed as is.
+    ///   - store: The instance of the store that will apply the action.
+    /// - Returns: The action composer object that carries the next action.
+    func handle<Action>(_ action: Action) -> Composer
 }
 
 public extension Middleware {
@@ -44,18 +49,17 @@ public extension Middleware {
     /// Associates a handler with the specific actions/store type combination.
     /// - Parameters:
     ///   - action: The type of the actions associated with the reducer.
-    ///   - store: The type of the store associated with the reducer.
     ///   - handler: The handler closure that will be invoked when the action received.
-    func register<Action, Subject: Store>(_ action: Action.Type, for store: Subject.Type, handler: @escaping Handler<Action, Subject>){
-        handlers.updateValue(handler, forKey: ObjectIdentifier(Handler<Action, Subject>.self))
+    func register<Action>(_ action: Action.Type, handler: @escaping Handler<Action>){
+        handlers.updateValue(handler, forKey: ObjectIdentifier(Handler<Action>.self))
     }
     
     /// Unregisters handler associated with the specific action/store type combination.
     /// - Parameters:
     ///   - action: The type of the actions associated with the reducer.
     ///   - store: The type of the store associated with the reducer.
-    func unregister<Action, Subject: Store>(_ action: Action.Type, for store: Subject.Type) {
-        handlers.removeValue(forKey: ObjectIdentifier(Handler<Action, Subject>.self))
+    func unregister<Action>(_ action: Action.Type) {
+        handlers.removeValue(forKey: ObjectIdentifier(Handler<Action>.self))
     }
     
     /// Unregisters all  reducers
@@ -63,16 +67,11 @@ public extension Middleware {
         handlers.removeAll()
     }
     
-    /// Handles the action and optionally transforms or cancels the action passed to the store.
-    /// - Parameters:
-    ///   - action: The action to be transformed, cancelled or passed as is.
-    ///   - store: The instance of the store that will apply the action.
-    /// - Returns: The ActionReducer object that carries the next action.
-    func handle<Action, Subject: Store>(_ action: Action, from store: Subject) -> Composer {
-        guard let handle = handlers[ObjectIdentifier(Handler<Action, Subject>.self)] as? Handler<Action, Subject> else {
+    func handle<Action>(_ action: Action) -> Composer {
+        guard let handle = handlers[ObjectIdentifier(Handler<Action>.self)] as? Handler<Action> else {
             return .next(action) // Pass the action as is
         }
         
-        return handle(action, store)
+        return handle(self, action)
     }
 }
