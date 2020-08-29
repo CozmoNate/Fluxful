@@ -33,6 +33,7 @@ import Foundation
 public protocol Dispatcher: AnyObject {
     
     /// Dispatches the action
+    /// - Parameter action: The action to dispatch.
     func dispatch<Action>(_ action: Action)
 }
 

@@ -30,12 +30,12 @@
 /// Composer is an opaque container that can transform, pass or stop action propagation.
 public struct Composer {
     
-    /// Passes the action to next reducer.
+    /// Passes the next action.
     public static func next<Action>(_ action: Action) -> Composer {
         return Composer(action)
     }
 
-    /// Stops action propagation.
+    /// Stops current action propagation.
     public static func stop() -> Composer {
         return Composer()
     }

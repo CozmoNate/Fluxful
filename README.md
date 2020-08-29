@@ -50,7 +50,7 @@ struct FetchAmountAction {}
 ```
 
 
-When you can implement middleware, that handles specific actions, run asynchronous work and updates the store:
+When you need to implement middleware, that handles specific actions by running asynchronous work and updates the store:
 
 ```swift
 class MyMiddleware: Middleware {
