@@ -37,7 +37,6 @@ public protocol Middleware: AnyObject {
 
     /// The list of type-erased reducer closures associated with specific types of actions and stores.
     var handlers: [ObjectIdentifier: Any] { get set }
-    
 }
 
 public extension Middleware {
@@ -69,9 +68,9 @@ public extension Middleware {
     ///   - action: The action to be transformed, cancelled or passed as is.
     ///   - store: The instance of the store that will apply the action.
     /// - Returns: The ActionReducer object that carries the next action.
-    func handle<Action, Subject: Store>(_ action: Action, _ store: Subject) -> Composer {
+    func handle<Action, Subject: Store>(_ action: Action, from store: Subject) -> Composer {
         guard let handle = handlers[ObjectIdentifier(Handler<Action, Subject>.self)] as? Handler<Action, Subject> else {
-            return .next(action, store) // Pass the action as is
+            return .next(action) // Pass the action as is
         }
         
         return handle(action, store)

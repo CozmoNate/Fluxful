@@ -20,6 +20,7 @@
 		2F4FB9E124F4E48A00E1D30E /* MockStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9E024F4E48900E1D30E /* MockStore.swift */; };
 		2F4FB9E524F5132500E1D30E /* MockMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9E424F5132500E1D30E /* MockMiddleware.swift */; };
 		2F4FB9E724F5289E00E1D30E /* MockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9E624F5289E00E1D30E /* MockAction.swift */; };
+		2F4FBA0124FA4D5D00E1D30E /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FBA0024FA4D5D00E1D30E /* Dispatcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		2F4FB9E424F5132500E1D30E /* MockMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMiddleware.swift; sourceTree = "<group>"; };
 		2F4FB9E624F5289E00E1D30E /* MockAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAction.swift; sourceTree = "<group>"; };
 		2F4FB9E824F52EFC00E1D30E /* redux-diagram.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "redux-diagram.gif"; sourceTree = "<group>"; };
+		2F4FBA0024FA4D5D00E1D30E /* Dispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dispatcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 			children = (
 				2F4FB99724F4C3A200E1D30E /* Fluxful.h */,
 				2F4FB9CF24F4E27D00E1D30E /* Composer.swift */,
+				2F4FBA0024FA4D5D00E1D30E /* Dispatcher.swift */,
 				2F4FB9CE24F4E27D00E1D30E /* Middleware.swift */,
 				2F4FB9D024F4E27D00E1D30E /* Store.swift */,
 				2F4FB99824F4C3A200E1D30E /* Info.plist */,
@@ -317,6 +320,7 @@
 			files = (
 				2F4FB9D324F4E27D00E1D30E /* Store.swift in Sources */,
 				2F4FB9D224F4E27D00E1D30E /* Composer.swift in Sources */,
+				2F4FBA0124FA4D5D00E1D30E /* Dispatcher.swift in Sources */,
 				2F4FB9D124F4E27D00E1D30E /* Middleware.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,8 +33,8 @@ import Foundation
 public struct Composer {
     
     /// Passes the action to next reducer.
-    public static func next<Action, Subject: Store>(_ action: Action, _ store: Subject) -> Composer {
-        return Composer(pass: { $0.handle(action, store) }, apply: { $0.apply(action) })
+    public static func next<Action>(_ action: Action) -> Composer {
+        return Composer(action)
     }
 
     /// Stops action propagation.
@@ -42,24 +42,50 @@ public struct Composer {
         return Composer()
     }
     
-    internal var pass: ((Middleware) -> Composer)?
-    internal var apply: ((Store) -> Void)?
+    internal var container: ActionContainer?
     
-    internal init(pass: ((Middleware) -> Composer)? = nil, apply: ((Store) -> Void)? = nil) {
-        self.pass = pass
-        self.apply = apply
+    internal init() {}
+    
+    internal init<Action>(_ action: Action) {
+        container = Container(action)
+    }
+    
+    /// Passes the action to middleware
+    internal func pass<Subject: Store>(to middleware: Middleware, from store: Subject) -> Composer {
+        return container?.pass(to: middleware, from: store) ?? self
+    }
+    
+    /// Applies the action to the store.
+    internal func apply<Subject: Store>(to store: Subject) {
+        container?.apply(to: store)
     }
 }
 
+internal protocol ActionContainer {
+    
+    /// Passes the action to middleware
+    func pass<Subject: Store>(to middleware: Middleware, from store: Subject) -> Composer
+    
+    /// Applies the action to the store.
+    func apply<Subject: Store>(to store: Subject)
+    
+}
+
 internal extension Composer {
-    
-    /// Dispatches the underlying action to middleware and return reducer with the action passed by the middleware.
-    func pass(to middleware: Middleware) -> Composer {
-        return pass?(middleware) ?? Composer(apply: apply)
-    }
-    
-    /// Applies the underlying action to the store.
-    func apply(to store: Store) {
-        apply?(store)
+    struct Container<Action>: ActionContainer {
+        
+        let action: Action
+        
+        init(_ action: Action) {
+            self.action = action
+        }
+        
+        func pass<Subject: Store>(to middleware: Middleware, from store: Subject) -> Composer {
+            return middleware.handle(action, from: store)
+        }
+        
+        func apply<Subject: Store>(to store: Subject) {
+            store.apply(action)
+        }
     }
 }

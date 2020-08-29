@@ -30,7 +30,7 @@
 import Foundation
 
 /// ReactiveStore is an object that represents a state and performs self mutation by handling dispatched actions.
-public protocol Store: AnyObject {
+public protocol Store: Dispatcher {
     
     /// A reducer closure associated with actions of specific type. Reducer synchronously apply changes to store.
     typealias Reducer<Action> = (_ store: Self, _ action: Action) -> Void
@@ -40,7 +40,6 @@ public protocol Store: AnyObject {
     
     /// The list of  middlewares.
     var middlewares: [Middleware] { get }
-    
 }
     
 public extension Store {
@@ -74,7 +73,7 @@ public extension Store {
     /// Dispatches the action to the store through middlewares.
     func dispatch<Action>(_ action: Action) {
         middlewares
-            .reduce(Composer.next(action, self)) { $0.pass(to: $1) }
+            .reduce(Composer(action)) { $0.pass(to: $1, from: self) }
             .apply(to: self)
     }
 }

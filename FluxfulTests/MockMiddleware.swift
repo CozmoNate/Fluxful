@@ -22,7 +22,7 @@ class MockMiddleware: Middleware {
                 store?.dispatch(MockAction.SetValue(value: action.value))
             }
             
-            return .next(MockAction.SetValue(value: "reset"), store)
+            return .next(MockAction.SetValue(value: "reset"))
         }
         
         register(MockAction.UpdateNumber.self, for: MockStore.self) { (action, store) in
