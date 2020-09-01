@@ -27,7 +27,7 @@
 *
 */
 
-/// ReactiveStore is an object that represents a state and performs self mutation by handling dispatched actions.
+/// Store is an object that represents a state and mutates itself by handling dispatched actions.
 public protocol Store: Dispatcher {
     
     /// A reducer closure associated with actions of specific type. Reducer synchronously apply changes to store.

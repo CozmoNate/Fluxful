@@ -15,12 +15,12 @@
 		2F4FB9D224F4E27D00E1D30E /* Composer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9CF24F4E27D00E1D30E /* Composer.swift */; };
 		2F4FB9D324F4E27D00E1D30E /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9D024F4E27D00E1D30E /* Store.swift */; };
 		2F4FB9D524F4E28900E1D30E /* Subscription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9D424F4E28900E1D30E /* Subscription.swift */; };
-		2F4FB9D824F4E3D400E1D30E /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 2F4FB9D724F4E3D400E1D30E /* Quick */; };
-		2F4FB9DB24F4E3E900E1D30E /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 2F4FB9DA24F4E3E900E1D30E /* Nimble */; };
 		2F4FB9E124F4E48A00E1D30E /* MockStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9E024F4E48900E1D30E /* MockStore.swift */; };
 		2F4FB9E524F5132500E1D30E /* MockMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9E424F5132500E1D30E /* MockMiddleware.swift */; };
 		2F4FB9E724F5289E00E1D30E /* MockAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FB9E624F5289E00E1D30E /* MockAction.swift */; };
 		2F4FBA0124FA4D5D00E1D30E /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4FBA0024FA4D5D00E1D30E /* Dispatcher.swift */; };
+		2F58255324FEBC7E00EE543D /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 2F58255224FEBC7E00EE543D /* Quick */; };
+		2F58255624FEBC8F00EE543D /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 2F58255524FEBC8F00EE543D /* Nimble */; };
 		2FB4091E24FA671B00110822 /* DispatcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB4091D24FA671B00110822 /* DispatcherTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,8 +86,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F4FB9DB24F4E3E900E1D30E /* Nimble in Frameworks */,
-				2F4FB9D824F4E3D400E1D30E /* Quick in Frameworks */,
+				2F58255624FEBC8F00EE543D /* Nimble in Frameworks */,
+				2F58255324FEBC7E00EE543D /* Quick in Frameworks */,
 				2F4FB99E24F4C3A300E1D30E /* Fluxful.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,8 +219,8 @@
 			);
 			name = FluxfulTests;
 			packageProductDependencies = (
-				2F4FB9D724F4E3D400E1D30E /* Quick */,
-				2F4FB9DA24F4E3E900E1D30E /* Nimble */,
+				2F58255224FEBC7E00EE543D /* Quick */,
+				2F58255524FEBC8F00EE543D /* Nimble */,
 			);
 			productName = FluxfulTests;
 			productReference = 2F4FB99D24F4C3A300E1D30E /* FluxfulTests.xctest */;
@@ -278,8 +278,8 @@
 			);
 			mainGroup = 2F4FB98A24F4C3A200E1D30E;
 			packageReferences = (
-				2F4FB9D624F4E3D400E1D30E /* XCRemoteSwiftPackageReference "Quick" */,
-				2F4FB9D924F4E3E900E1D30E /* XCRemoteSwiftPackageReference "Nimble" */,
+				2F58255124FEBC7E00EE543D /* XCRemoteSwiftPackageReference "Quick" */,
+				2F58255424FEBC8F00EE543D /* XCRemoteSwiftPackageReference "Nimble" */,
 			);
 			productRefGroup = 2F4FB99524F4C3A200E1D30E /* Products */;
 			projectDirPath = "";
@@ -671,33 +671,33 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2F4FB9D624F4E3D400E1D30E /* XCRemoteSwiftPackageReference "Quick" */ = {
+		2F58255124FEBC7E00EE543D /* XCRemoteSwiftPackageReference "Quick" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Quick/Quick.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
 			};
 		};
-		2F4FB9D924F4E3E900E1D30E /* XCRemoteSwiftPackageReference "Nimble" */ = {
+		2F58255424FEBC8F00EE543D /* XCRemoteSwiftPackageReference "Nimble" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Quick/Nimble.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2F4FB9D724F4E3D400E1D30E /* Quick */ = {
+		2F58255224FEBC7E00EE543D /* Quick */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2F4FB9D624F4E3D400E1D30E /* XCRemoteSwiftPackageReference "Quick" */;
+			package = 2F58255124FEBC7E00EE543D /* XCRemoteSwiftPackageReference "Quick" */;
 			productName = Quick;
 		};
-		2F4FB9DA24F4E3E900E1D30E /* Nimble */ = {
+		2F58255524FEBC8F00EE543D /* Nimble */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2F4FB9D924F4E3E900E1D30E /* XCRemoteSwiftPackageReference "Nimble" */;
+			package = 2F58255424FEBC8F00EE543D /* XCRemoteSwiftPackageReference "Nimble" */;
 			productName = Nimble;
 		};
 /* End XCSwiftPackageProductDependency section */
