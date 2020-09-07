@@ -37,7 +37,7 @@ public protocol Store: Dispatcher {
     var reducers: [ObjectIdentifier: Any] { get set }
     
     /// The list of  middlewares.
-    var middlewares: [Middleware] { get }
+    var middlewares: [Middleware] { get set }
     
     /// Applies the action bypassing middlewares.
     /// - Parameter action: The action to apply

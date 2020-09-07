@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Fluxful'
-  s.version          = '1.2.1'
+  s.version          = '1.2.2'
   s.summary          = 'Module oriented Flux pattern implemented in Swift.'
   s.homepage         = 'https://github.com/kzlekk/Fluxful'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
