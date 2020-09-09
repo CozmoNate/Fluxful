@@ -15,7 +15,7 @@ class MockMiddleware: Middleware {
     var handlers: [ObjectIdentifier: Any] = [:]
     
     init(dispatcher: Dispatcher) {
-        register(MockAction.UpdateValue.self, from: MockStore.self) { (action, store) in
+        register(MockAction.UpdateValue.self, for: MockStore.self) { (action, store) in
             
             // Simulate background activity and event dispatched with delay
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) { [weak store] in
@@ -25,7 +25,7 @@ class MockMiddleware: Middleware {
             return .next(MockAction.SetValue(value: "reset"))
         }
         
-        register(MockAction.UpdateNumber.self, from: MockStore.self) { (action, store) in
+        register(MockAction.UpdateNumber.self, for: MockStore.self) { (action, store) in
             
             // Simulate background activity and event dispatched with delay
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(250)) { [weak store] in

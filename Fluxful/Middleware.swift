@@ -50,7 +50,7 @@ public extension Middleware {
     /// - Parameters:
     ///   - action: The type of the actions associated with the reducer.
     ///   - handler: The handler closure that will be invoked when the action received.
-    func register<Action, Store: Fluxful.Store>(_ action: Action.Type, from store: Store.Type, handler: @escaping Handler<Action, Store>){
+    func register<Action, Store: Fluxful.Store>(_ action: Action.Type, for store: Store.Type, handler: @escaping Handler<Action, Store>){
         handlers.updateValue(handler, forKey: ObjectIdentifier(Handler<Action, Store>.self))
     }
     
@@ -58,7 +58,7 @@ public extension Middleware {
     /// - Parameters:
     ///   - action: The type of the actions associated with the reducer.
     ///   - store: The type of the store associated with the reducer.
-    func unregister<Action, Store: Fluxful.Store>(_ action: Action.Type, from store: Store.Type) {
+    func unregister<Action, Store: Fluxful.Store>(_ action: Action.Type, for store: Store.Type) {
         handlers.removeValue(forKey: ObjectIdentifier(Handler<Action, Store>.self))
     }
     
