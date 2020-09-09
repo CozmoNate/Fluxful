@@ -31,7 +31,7 @@
 public protocol Middleware: AnyObject {
     
     /// A handler closure associated with actions of specific type.
-    typealias Handler<Action> = (_ subject: Self, _ action: Action) -> Composer
+    typealias Handler<Action, Store: Fluxful.Store> = (_ action: Action, _ store: Store) -> Composer
 
     /// The list of type-erased handler closures associated with specific types of actions.
     var handlers: [ObjectIdentifier: Any] { get set }
@@ -41,7 +41,7 @@ public protocol Middleware: AnyObject {
     ///   - action: The action to be transformed, cancelled or passed as is.
     ///   - store: The instance of the store that will apply the action.
     /// - Returns: The action composer object that carries the next action.
-    func handle<Action>(_ action: Action) -> Composer
+    func handle<Action, Store: Fluxful.Store>(_ action: Action, from store: Store) -> Composer
 }
 
 public extension Middleware {
@@ -50,16 +50,16 @@ public extension Middleware {
     /// - Parameters:
     ///   - action: The type of the actions associated with the reducer.
     ///   - handler: The handler closure that will be invoked when the action received.
-    func register<Action>(_ action: Action.Type, handler: @escaping Handler<Action>){
-        handlers.updateValue(handler, forKey: ObjectIdentifier(Handler<Action>.self))
+    func register<Action, Store: Fluxful.Store>(_ action: Action.Type, from store: Store.Type, handler: @escaping Handler<Action, Store>){
+        handlers.updateValue(handler, forKey: ObjectIdentifier(Handler<Action, Store>.self))
     }
     
     /// Unregisters handler associated with the specific action/store type combination.
     /// - Parameters:
     ///   - action: The type of the actions associated with the reducer.
     ///   - store: The type of the store associated with the reducer.
-    func unregister<Action>(_ action: Action.Type) {
-        handlers.removeValue(forKey: ObjectIdentifier(Handler<Action>.self))
+    func unregister<Action, Store: Fluxful.Store>(_ action: Action.Type, from store: Store.Type) {
+        handlers.removeValue(forKey: ObjectIdentifier(Handler<Action, Store>.self))
     }
     
     /// Unregisters all  reducers
@@ -67,11 +67,10 @@ public extension Middleware {
         handlers.removeAll()
     }
     
-    func handle<Action>(_ action: Action) -> Composer {
-        guard let handle = handlers[ObjectIdentifier(Handler<Action>.self)] as? Handler<Action> else {
+    func handle<Action, Store: Fluxful.Store>(_ action: Action, from store: Store) -> Composer {
+        guard let handle = handlers[ObjectIdentifier(Handler<Action, Store>.self)] as? Handler<Action, Store> else {
             return .next(action) // Pass the action as is
         }
-        
-        return handle(self, action)
+        return handle(action, store)
     }
 }

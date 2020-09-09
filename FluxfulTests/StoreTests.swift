@@ -75,7 +75,7 @@ class StoreTests: QuickSpec {
                 
                 beforeEach {
                     middleware = subject.middlewares[0]
-                    middleware.unregister(MockAction.UpdateValue.self)
+                    middleware.unregister(MockAction.UpdateValue.self, from: MockStore.self)
                 }
                 
                 it("does not the action") {
@@ -101,7 +101,7 @@ class StoreTests: QuickSpec {
                 
                 beforeEach {
                     middleware = subject.middlewares[0]
-                    middleware.register(MockAction.SetValue.self) { (action, store) in
+                    middleware.register(MockAction.SetValue.self, from: MockStore.self) { (action, store) in
                         return .stop()
                     }
                     subject.dispatch(MockAction.SetValue(value: "intercept"))

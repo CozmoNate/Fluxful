@@ -73,7 +73,7 @@ public extension Store {
     
     func dispatch<Action>(_ action: Action) {
         middlewares
-            .reduce(Composer(action)) { $0.handle(with: $1) }
+            .reduce(Composer(action)) { $0.handle(with: $1, from: self) }
             .apply(to: self)
     }
 }

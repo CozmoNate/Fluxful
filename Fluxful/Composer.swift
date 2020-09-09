@@ -50,14 +50,14 @@ public struct Composer {
 }
 
 internal protocol Actionable {
-    func handle(with middleware: Middleware) -> Composer
+    func handle<Store: Fluxful.Store>(with middleware: Middleware, from store: Store) -> Composer
     func apply(to store: Store)
 }
 
 extension Composer: Actionable {
     
-    func handle(with middleware: Middleware) -> Composer {
-        return container?.handle(with: middleware) ?? self
+    func handle<Store: Fluxful.Store>(with middleware: Middleware, from store: Store) -> Composer {
+        return container?.handle(with: middleware, from: store) ?? self
     }
     
     func apply(to store: Store) {
@@ -75,8 +75,8 @@ internal extension Composer {
             self.action = action
         }
         
-        func handle(with middleware: Middleware) -> Composer {
-            return middleware.handle(action)
+        func handle<Store: Fluxful.Store>(with middleware: Middleware, from store: Store) -> Composer {
+            return middleware.handle(action, from: store)
         }
         
         func apply(to store: Store) {

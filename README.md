@@ -58,13 +58,13 @@ class MyMiddleware: Middleware {
     var handlers: [ObjectIdentifier: Any] = [:]
     
     init(dispatcher: Dispatcher) {
-        register(FetchAmountAction.self) { [weak dispatcher] (subject, action) in
+        register(FetchAmountAction.self, from: MyStore.self) { (subject, action, store) in
             
             /* Here you can run code in background or make API call */ 
             
             // After that you should back to main thread and update the store
             DispatchQueue.main.async { [weak store] in
-                dispatcher?.dispatch(SetAmountAction(value: /* Value received */))
+                store?.dispatch(SetAmountAction(value: /* Value received */))
             }
             
             // You can just intercept the action if it will not being handled in the store anyway
